@@ -1,0 +1,51 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Jan 11 14:46:23 2019",
+    "version": "eosio::abi/1.1",
+    "structs": [
+        {
+            "name": "dream",
+            "base": "",
+            "fields": [
+                {
+                    "name": "who",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "reality",
+            "base": "",
+            "fields": [
+                {
+                    "name": "data",
+                    "type": "asset"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "dream",
+            "type": "dream",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reality",
+            "type": "reality",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [],
+    "ricardian_clauses": [],
+    "variants": [],
+    "abi_extensions": []
+}
