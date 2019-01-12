@@ -8,6 +8,7 @@
 #include <eosiolib/types.hpp>
 #include <eosiolib/transaction.hpp>
 #include <eosiolib/crypto.h>
+#include <eosiolib/print.hpp>
 #include <boost/algorithm/string.hpp>
 
 using eosio::asset;
