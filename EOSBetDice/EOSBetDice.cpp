@@ -316,7 +316,7 @@ class EOSBetDice : public eosio::contract {
 		// @abi action
 		void refundbet(const uint64_t bet_id) {
 
-			require_auth2(N(eosbetcasino), N(random));
+			//require_auth2(N(eosbetcasino), N(random));
 
 			auto activebets_itr = activebets.find( bet_id );
 
