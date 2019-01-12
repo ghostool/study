@@ -234,6 +234,7 @@ class EOSBetDice : public eosio::contract {
 			decrement_liabilities(activebets_itr->bet_amt);
 
 			if (payout > 0){
+				print("winner")
 				action(
 					permission_level{_self, N(active)},
 					N(eosio.token), 
