@@ -199,12 +199,14 @@ class EOSBetDice : public eosio::contract {
 				bet.seed = seed_hash;
 				bet.bet_time = time_point_sec(now());
 			});
+			print("SS1");
 		}
 
 		// @abi action
 		void resolvebet(const uint64_t bet_id, signature sig) {
 
 			require_auth2(N(eosbetcasino), N(random));
+			print("SS2");
 
 			auto activebets_itr = activebets.find( bet_id );
 			eosio_assert(activebets_itr != activebets.end(), "Bet doesn't exist");
