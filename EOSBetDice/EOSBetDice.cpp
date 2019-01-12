@@ -200,8 +200,8 @@ class EOSBetDice : public eosio::contract {
 				bet.seed = seed_hash;
 				bet.bet_time = time_point_sec(now());
 			});
-			print("SS1");
-			print(bet_id);
+			print("SS1  ");
+			print(bet_id,"  ");
 			printhex( &seed_hash, sizeof(seed_hash) );
 		}
 
