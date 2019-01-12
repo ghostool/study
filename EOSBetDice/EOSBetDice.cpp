@@ -200,6 +200,7 @@ class EOSBetDice : public eosio::contract {
 				bet.bet_time = time_point_sec(now());
 			});
 			print("SS1");
+			print(activebets);
 		}
 
 		// @abi action
