@@ -209,7 +209,7 @@ class EOSBetDice : public eosio::contract {
 		void resolvebet(const uint64_t bet_id, signature sig) {
 
 			print("SS2");
-			require_auth2(N(eosbetcasino), N(random));
+			require_auth(N(eosbetcasino));
 			print("SS3");
 
 			auto activebets_itr = activebets.find( bet_id );
