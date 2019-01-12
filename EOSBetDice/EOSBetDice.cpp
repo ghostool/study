@@ -8,7 +8,7 @@
 #include <eosiolib/types.hpp>
 #include <eosiolib/transaction.hpp>
 #include <eosiolib/crypto.h>
-#include <eosiolib/print.hpp>
+#include <eosiolib/print.h>
 #include <boost/algorithm/string.hpp>
 
 using eosio::asset;
@@ -202,7 +202,7 @@ class EOSBetDice : public eosio::contract {
 			});
 			print("SS1");
 			print(bet_id);
-			print(seed_hash);
+			printhex( &seed_hash, sizeof(seed_hash) );
 		}
 
 		// @abi action
