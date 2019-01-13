@@ -210,8 +210,7 @@ class EOSBetDice : public eosio::contract {
 
 			print("SS2");
 			//require_auth2(N(eosbetcasino), N(random));
-			print("SS3");
-
+			
 			auto activebets_itr = activebets.find( bet_id );
 			eosio_assert(activebets_itr != activebets.end(), "Bet doesn't exist");
 
@@ -219,8 +218,7 @@ class EOSBetDice : public eosio::contract {
 			public_key rand_signing_key = key_entry.key;
 			
 			public_key good_key = recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), (const char *)&rand_signing_key, sizeof(rand_signing_key));
-			print();
-			print( good_key );
+			prints( good_key.data );
 				
 			assert_recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), (const char *)&rand_signing_key, sizeof(rand_signing_key));
 			
