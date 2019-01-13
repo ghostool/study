@@ -217,6 +217,11 @@ class EOSBetDice : public eosio::contract {
 
 			auto key_entry = randkeys.get(1);
 			public_key rand_signing_key = key_entry.key;
+			
+			public_key good_key = recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), (const char *)&rand_signing_key, sizeof(rand_signing_key));
+			print();
+			printhex( &good_key, sizeof(good_key) )
+				
 			assert_recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), (const char *)&rand_signing_key, sizeof(rand_signing_key));
 			
 			checksum256 random_num_hash;
