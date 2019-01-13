@@ -220,7 +220,7 @@ class EOSBetDice : public eosio::contract {
 			
 			public_key good_key = recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), (const char *)&rand_signing_key, sizeof(rand_signing_key));
 			print();
-			printhex( &good_key, sizeof(good_key) );
+			print( good_key );
 				
 			assert_recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), (const char *)&rand_signing_key, sizeof(rand_signing_key));
 			
