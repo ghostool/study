@@ -208,7 +208,7 @@ class EOSBetDice : public eosio::contract {
 		// @abi action
 		void resolvebet(const uint64_t bet_id, signature sig) {
 
-			print("SS2");
+			//print("SS2");
 			//require_auth2(N(eosbetcasino), N(random));
 			
 			auto activebets_itr = activebets.find( bet_id );
@@ -217,10 +217,10 @@ class EOSBetDice : public eosio::contract {
 			auto key_entry = randkeys.get(1);
 			public_key rand_signing_key = key_entry.key;
 			
-			int good_key = recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), ( char *)&rand_signing_key, sizeof(rand_signing_key));
-			print( good_key );
+			//int good_key = recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), ( char *)&rand_signing_key, sizeof(rand_signing_key));
+			//print( good_key );
 				
-			assert_recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), (const char *)&rand_signing_key, sizeof(rand_signing_key));
+			//assert_recover_key(&activebets_itr->seed, (const char *)&sig, sizeof(sig), (const char *)&rand_signing_key, sizeof(rand_signing_key));
 			
 			checksum256 random_num_hash;
 			sha256( (char *)&sig, sizeof(sig), &random_num_hash );
@@ -241,6 +241,7 @@ class EOSBetDice : public eosio::contract {
 
 			increment_game_stats(activebets_itr->bet_amt, payout);
 			decrement_liabilities(activebets_itr->bet_amt);
+			print("payout = ", payout);
 
 			if (payout > 0){
 				print("winner");
