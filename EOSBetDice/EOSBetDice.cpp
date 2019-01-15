@@ -244,7 +244,7 @@ class EOSBetDice : public eosio::contract {
 			print("payout = ", payout);
 
 			if (payout > 0){
-				print("winner");
+				print(" winner ");
 				action(
 					permission_level{_self, N(active)},
 					N(eosio.token), 
@@ -257,6 +257,8 @@ class EOSBetDice : public eosio::contract {
 					)
 				).send();
 			}
+			
+			print(" transfered ");
 
 			transaction ref_tx{};
 
