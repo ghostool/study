@@ -245,6 +245,8 @@ class EOSBetDice : public eosio::contract {
 
 			if (payout > 0){
 				print(" winner ");
+				print( _self );
+				asset sss = "1 EOS";
 				action(
 					permission_level{_self, N(active)},
 					N(eosio.token), 
@@ -252,7 +254,8 @@ class EOSBetDice : public eosio::contract {
 					std::make_tuple(
 						_self, 
 						activebets_itr->bettor, 
-						asset(payout, symbol_type(S(4, EOS))), 
+						//asset(payout, symbol_type(S(4, EOS))), 
+						sss,
 						std::string("Bet id: ") + std::to_string(bet_id) + std::string(" -- Winner! Play: dice.eosbet.io")
 					)
 				).send();
