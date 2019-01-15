@@ -246,7 +246,8 @@ class EOSBetDice : public eosio::contract {
 			if (payout > 0){
 				print(" winner ");
 				print( _self );
-				asset sss = "1 EOS";
+				asset sss = asset(payout, symbol_type(S(4, EOS)));
+				print( " ", sss );
 				action(
 					permission_level{_self, N(active)},
 					N(eosio.token), 
