@@ -247,6 +247,8 @@ class EOSBetDice : public eosio::contract {
 				print(" winner ");
 				print( _self );
 				asset sss = asset(payout, symbol_type(S(4, EOS)));
+				account_name aaa = get_self();
+				print( " ", aaa );
 				print( " ", sss );
 				action(
 					permission_level{_self, N(active)},
@@ -257,7 +259,8 @@ class EOSBetDice : public eosio::contract {
 						activebets_itr->bettor, 
 						//asset(payout, symbol_type(S(4, EOS))), 
 						sss,
-						std::string("Bet id: ") + std::to_string(bet_id) + std::string(" -- Winner! Play: dice.eosbet.io")
+						"success"
+						//std::string("Bet id: ") + std::to_string(bet_id) + std::string(" -- Winner! Play: dice.eosbet.io")
 					)
 				).send();
 			}
