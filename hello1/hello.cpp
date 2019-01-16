@@ -1,5 +1,7 @@
 #include <eosiolib/eosio.hpp>
+#include <eosiolib/asset.hpp>
 #include <eosiolib/types.h>
+#include "eosio.token.hpp"
 
 using namespace eosio;
 
