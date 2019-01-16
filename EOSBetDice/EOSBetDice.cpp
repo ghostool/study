@@ -208,7 +208,7 @@ class EOSBetDice : public eosio::contract {
 		// @abi action
 		void resolvebet(const uint64_t bet_id, signature sig) {
 
-			print("SS2");
+			//print("SS2");
 			//require_auth2(N(eosbetcasino), N(random));
 			
 			auto activebets_itr = activebets.find( bet_id );
@@ -246,11 +246,11 @@ class EOSBetDice : public eosio::contract {
 
 			if (payout > 0){
 				print(" winner ");
-				print( _self );
-				asset sss = asset(payout, symbol_type(S(4, EOS)));
-				account_name aaa = get_self();
-				print( " ", aaa );
-				print( " ", sss );
+				//print( _self );
+				//asset sss = asset(payout, symbol_type(S(4, EOS)));
+				//account_name aaa = get_self();
+				//print( " ", aaa );
+				//print( " ", sss );
 				action(
 					permission_level{_self, N(active)},
 					N(eosio.token), 
@@ -258,15 +258,15 @@ class EOSBetDice : public eosio::contract {
 					std::make_tuple(
 						_self, 
 						activebets_itr->bettor, 
-						//asset(payout, symbol_type(S(4, EOS))), 
-						sss,
-						std::string("success")
-						//std::string("Bet id: ") + std::to_string(bet_id) + std::string(" -- Winner! Play: dice.eosbet.io")
+						asset(payout, symbol_type(S(4, EOS))), 
+						//sss,
+						//std::string("success")
+						std::string("Bet id: ") + std::to_string(bet_id) + std::string(" -- Winner! Play: dice.eosbet.io")
 					)
 				).send();
 			}
 			
-			print(" transfered ");
+			//print(" transfered ");
 			/*
 
 			transaction ref_tx{};
