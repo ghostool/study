@@ -212,7 +212,7 @@ class EOSBetDice : public eosio::contract {
 			//require_auth2(N(eosbetcasino), N(random));
 			
 			auto activebets_itr = activebets.find( bet_id );
-			eosio_assert(activebets_itr != activebets.end(), "Bet doesn't exist");
+			//eosio_assert(activebets_itr != activebets.end(), "Bet doesn't exist");
 
 			auto key_entry = randkeys.get(1);
 			public_key rand_signing_key = key_entry.key;
