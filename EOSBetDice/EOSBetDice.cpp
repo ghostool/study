@@ -267,7 +267,7 @@ class EOSBetDice : public eosio::contract {
 			}
 			
 			//print(" transfered ");
-			/*
+			
 
 			transaction ref_tx{};
 
@@ -309,7 +309,7 @@ class EOSBetDice : public eosio::contract {
 			airdrop_tokens(bet_id, activebets_itr->bet_amt, activebets_itr->bettor);
 
 			activebets.erase(activebets_itr);
-			*/
+			
 		}
 
 		// @abi action
