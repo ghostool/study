@@ -113,7 +113,7 @@ class EOSBetDice : public eosio::contract {
 			activebets.erase(activebets_itr);
 		}
 
-		void calcbetid(account_name _from, asset _quantity, string _memo)
+		void calcbetid(account_name _from, asset _quantity, std::string _memo)
 			/*
 			auto transfer_data = unpack_action_data<st_transfer>();
 
@@ -123,11 +123,11 @@ class EOSBetDice : public eosio::contract {
 			
 			eosio_assert( transfer_data.quantity.is_valid(), "Invalid asset");
 			*/
-		    stuct transfer_data {
-				from = _from;
-				asset = _asset;
-				memo = _memo;
-		    }
+		        st_transfer transfer_data;
+			transfer_data.from = _from;
+			transfer_data.quantity = _quantity;
+			transfer_data.memo = _memo;
+		    
 
 			const uint64_t your_bet_amount = (uint64_t)transfer_data.quantity.amount;
 			eosio_assert(MINBET <= your_bet_amount, "Must bet greater than min");
