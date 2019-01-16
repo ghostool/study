@@ -1,7 +1,15 @@
+#include <utility>
+#include <vector>
+#include <string>
 #include <eosiolib/eosio.hpp>
+#include <eosiolib/time.hpp>
 #include <eosiolib/asset.hpp>
-#include <eosiolib/types.h>
-#include "eosio.token.hpp"
+#include <eosiolib/contract.hpp>
+#include <eosiolib/types.hpp>
+#include <eosiolib/transaction.hpp>
+#include <eosiolib/crypto.h>
+#include <eosiolib/print.h>
+#include <boost/algorithm/string.hpp>
 
 using namespace eosio;
 
@@ -26,6 +34,7 @@ class hello : public eosio::contract {
             std::make_tuple(balance)
          ).send();
          */
+      }
 
       [[eosio::action]]
       void reality( asset data ) {
