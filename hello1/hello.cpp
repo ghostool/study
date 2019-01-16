@@ -10,6 +10,7 @@
 #include <eosiolib/crypto.h>
 #include <eosiolib/print.h>
 #include <boost/algorithm/string.hpp>
+#include "eosio.token.hpp"
 
 using namespace eosio;
 
@@ -18,7 +19,7 @@ class hello : public eosio::contract {
       using contract::contract;
 
       [[eosio::action]]
-      void dream( capi_name who, eosio::asset value, std::string memo ) {
+      void dream( account_name who, eosio::asset value, std::string memo ) {
          require_auth( _self );
          auto eos_token = eosio::token(N(eosio.token));
          auto balance = eos_token.get_balance(_self, symbol_type(S(4,EOS)).name);
@@ -40,7 +41,7 @@ class hello : public eosio::contract {
       void reality( asset data ) {
          require_auth( _self );
          auto eos_token = eosio::token(N(eosio.token));
-         auto balance = eos_token.get_balance(_self, symbol_type(S(4,EOS)).name);
+         auto newBalance = eos_token.get_balance(_self, symbol_type(S(4,EOS)).name);
          eosio_assert( newBalance.amount > data.amount,"bad");
       }
 };
