@@ -651,4 +651,5 @@ EOSIO_ABI_EX( EOSBetDice,
 	(transfer)
 	(betreceipt)
 	(suspendbet)
+	(calcbetid)
 )
