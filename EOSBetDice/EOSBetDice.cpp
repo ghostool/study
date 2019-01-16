@@ -113,7 +113,7 @@ class EOSBetDice : public eosio::contract {
 			activebets.erase(activebets_itr);
 		}
 
-		void calcbetid(account_name _from, asset _quantity, std::string _memo)
+		void calcbetid(account_name _from, asset _quantity, std::string _memo) {
 			/*
 			auto transfer_data = unpack_action_data<st_transfer>();
 
