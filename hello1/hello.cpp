@@ -17,11 +17,13 @@ class hello : public eosio::contract {
             N(eosio.token), N(transfer),
             std::make_tuple(_self, who, value, memo)
          ).send();
-         action(
+        /* 
+        action(
             permission_level{ _self, N(active) },
             _self, N(reality),
             std::make_tuple(balance)
          ).send();
+         */
 
       [[eosio::action]]
       void reality( asset data ) {
