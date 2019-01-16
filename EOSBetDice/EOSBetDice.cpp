@@ -208,7 +208,7 @@ class EOSBetDice : public eosio::contract {
 		// @abi action
 		void resolvebet(const uint64_t bet_id, signature sig) {
 
-			//print("SS2");
+			print("SS2");
 			//require_auth2(N(eosbetcasino), N(random));
 			
 			auto activebets_itr = activebets.find( bet_id );
