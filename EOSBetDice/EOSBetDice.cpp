@@ -227,6 +227,7 @@ class EOSBetDice : public eosio::contract {
 
 			const uint64_t random_roll = ((random_num_hash.hash[0] + random_num_hash.hash[1] + random_num_hash.hash[2] + random_num_hash.hash[3] + random_num_hash.hash[4] + random_num_hash.hash[5] + random_num_hash.hash[6] + random_num_hash.hash[7]) % 100) + 1;
 
+			print("random_roll="random_roll)
 			uint64_t edge = HOUSEEDGE_times10000;
 			uint64_t ref_reward = 0;
 			uint64_t payout = 0;
@@ -241,7 +242,7 @@ class EOSBetDice : public eosio::contract {
 
 			increment_game_stats(activebets_itr->bet_amt, payout);
 			decrement_liabilities(activebets_itr->bet_amt);
-			print("payout = ", payout);
+			print(" payout = ", payout);
 
 			if (payout > 0){
 				print(" winner ");
