@@ -113,6 +113,100 @@ class EOSBetDice : public eosio::contract {
 			activebets.erase(activebets_itr);
 		}
 
+		void calcbetid(account_name _from, asset _quantity, std::string _memo) {
+			/*
+			auto transfer_data = unpack_action_data<st_transfer>();
+
+			if (transfer_data.from == _self || transfer_data.from == N(eosbetcasino)){
+				return;
+			}
+			
+			eosio_assert( transfer_data.quantity.is_valid(), "Invalid asset");
+			*/
+		        st_transfer transfer_data;
+			transfer_data.from = _from;
+			transfer_data.quantity = _quantity;
+			transfer_data.memo = _memo;
+		    
+
+			const uint64_t your_bet_amount = (uint64_t)transfer_data.quantity.amount;
+			eosio_assert(MINBET <= your_bet_amount, "Must bet greater than min");
+
+			increment_liabilities_bet_id(your_bet_amount);
+
+			std::string roll_str;
+			std::string ref_str;
+			std::string seed_str;
+
+			const std::size_t first_break = transfer_data.memo.find("-");
+			roll_str = transfer_data.memo.substr(0, first_break);
+
+			if(first_break != std::string::npos){
+				
+				const std::string after_first_break = transfer_data.memo.substr(first_break + 1);
+				const std::size_t second_break = after_first_break.find("-");
+
+				if(second_break != std::string::npos){
+					
+					ref_str = after_first_break.substr(0, second_break);
+					seed_str = after_first_break.substr(second_break + 1);
+				}
+				else {
+					
+					ref_str = after_first_break;
+					seed_str = std::string("");
+				}
+			}
+			else {
+				ref_str = std::string("");
+				seed_str = std::string("");
+			}
+
+			account_name referral = N(eosbetcasino);
+
+			const account_name possible_ref = eosio::string_to_name(ref_str.c_str());
+			uint64_t house_edge = HOUSEEDGE_times10000;
+
+			if (possible_ref != _self && possible_ref != transfer_data.from && is_account(possible_ref)){
+				referral = possible_ref;
+				house_edge = HOUSEEDGE_REF_times10000;
+			}
+
+			const uint64_t roll_under = std::stoull(roll_str, 0, 10);
+			eosio_assert( roll_under >= 2 && roll_under <= 96, "Roll must be >= 2, <= 96.");
+
+			const uint64_t your_win_amount = (your_bet_amount * get_payout_mult_times10000(roll_under, house_edge) / 10000) - your_bet_amount;
+			eosio_assert(your_win_amount <= get_max_win(), "Bet less than max");
+
+			checksum256 user_seed_hash;
+			sha256( (char *)&seed_str, seed_str.length(), &user_seed_hash );
+
+			auto s = read_transaction(nullptr, 0);
+		    char *tx = (char *)malloc(s);
+		    read_transaction(tx, s);
+		    checksum256 tx_hash;
+		    sha256(tx, s, &tx_hash);
+
+			st_seeds seeds;
+			seeds.seed1 = user_seed_hash;
+			seeds.seed2 = tx_hash;
+			
+			checksum256 seed_hash;
+			sha256( (char *)&seeds.seed1, sizeof(seeds.seed1) * 2, &seed_hash);
+
+			const uint64_t bet_id = ((uint64_t)tx_hash.hash[0] << 56) + ((uint64_t)tx_hash.hash[1] << 48) + ((uint64_t)tx_hash.hash[2] << 40) + ((uint64_t)tx_hash.hash[3] << 32) + ((uint64_t)tx_hash.hash[4] << 24) + ((uint64_t)tx_hash.hash[5] << 16) + ((uint64_t)tx_hash.hash[6] << 8) + (uint64_t)tx_hash.hash[7];
+
+			activebets.emplace(_self, [&](auto& bet){
+				bet.id = bet_id;
+				bet.bettor = transfer_data.from;
+				bet.referral = referral;
+				bet.bet_amt = your_bet_amount;
+				bet.roll_under = roll_under;
+				bet.seed = seed_hash;
+				bet.bet_time = time_point_sec(now());
+			});
+		}
+
 		void transfer(uint64_t sender, uint64_t receiver) {
 
 			auto transfer_data = unpack_action_data<st_transfer>();
@@ -200,9 +294,6 @@ class EOSBetDice : public eosio::contract {
 				bet.seed = seed_hash;
 				bet.bet_time = time_point_sec(now());
 			});
-			print("SS1  ");
-			print(bet_id,"  ");
-			printhex( &seed_hash, sizeof(seed_hash) );
 		}
 
 		// @abi action
@@ -212,7 +303,7 @@ class EOSBetDice : public eosio::contract {
 			//require_auth2(N(eosbetcasino), N(random));
 			
 			auto activebets_itr = activebets.find( bet_id );
-			eosio_assert(activebets_itr != activebets.end(), "Bet doesn't exist");
+			//eosio_assert(activebets_itr != activebets.end(), "Bet doesn't exist");
 
 			auto key_entry = randkeys.get(1);
 			public_key rand_signing_key = key_entry.key;
@@ -227,6 +318,7 @@ class EOSBetDice : public eosio::contract {
 
 			const uint64_t random_roll = ((random_num_hash.hash[0] + random_num_hash.hash[1] + random_num_hash.hash[2] + random_num_hash.hash[3] + random_num_hash.hash[4] + random_num_hash.hash[5] + random_num_hash.hash[6] + random_num_hash.hash[7]) % 100) + 1;
 
+			print("random_roll=", random_roll);
 			uint64_t edge = HOUSEEDGE_times10000;
 			uint64_t ref_reward = 0;
 			uint64_t payout = 0;
@@ -241,15 +333,15 @@ class EOSBetDice : public eosio::contract {
 
 			increment_game_stats(activebets_itr->bet_amt, payout);
 			decrement_liabilities(activebets_itr->bet_amt);
-			print("payout = ", payout);
+			print(" payout = ", payout);
 
 			if (payout > 0){
 				print(" winner ");
-				print( _self );
-				asset sss = asset(payout, symbol_type(S(4, EOS)));
-				account_name aaa = get_self();
-				print( " ", aaa );
-				print( " ", sss );
+				//print( _self );
+				//asset sss = asset(payout, symbol_type(S(4, EOS)));
+				//account_name aaa = get_self();
+				//print( " ", aaa );
+				//print( " ", sss );
 				action(
 					permission_level{_self, N(active)},
 					N(eosio.token), 
@@ -257,15 +349,16 @@ class EOSBetDice : public eosio::contract {
 					std::make_tuple(
 						_self, 
 						activebets_itr->bettor, 
-						//asset(payout, symbol_type(S(4, EOS))), 
-						sss,
-						"success"
+						asset(payout, symbol_type(S(4, EOS))), 
+						//sss,
+						std::string("Winner! Play: dice.eosbet.io")
 						//std::string("Bet id: ") + std::to_string(bet_id) + std::string(" -- Winner! Play: dice.eosbet.io")
 					)
 				).send();
 			}
 			
-			print(" transfered ");
+			//print(" transfered ");
+			
 
 			transaction ref_tx{};
 
@@ -307,6 +400,7 @@ class EOSBetDice : public eosio::contract {
 			airdrop_tokens(bet_id, activebets_itr->bet_amt, activebets_itr->bettor);
 
 			activebets.erase(activebets_itr);
+			
 		}
 
 		// @abi action
@@ -557,4 +651,5 @@ EOSIO_ABI_EX( EOSBetDice,
 	(transfer)
 	(betreceipt)
 	(suspendbet)
+	(calcbetid)
 )

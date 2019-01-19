@@ -20,7 +20,7 @@
         },
         {
           "name": "bet_amt",
-          "type": "uint64
+          "type": "uint64"
         },
         {
           "name": "roll_under",
