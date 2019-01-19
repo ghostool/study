@@ -21,12 +21,14 @@ class hello1 : public contract {
             "transfer"_n,
             std::make_tuple(_self, who, value, memo)
          ).send();
+         /*
          action(
             permission_level{get_self(),"active"_n},
              get_self(), 
              "reality"_n,
             std::make_tuple(balance)
          ).send();
+         */
       }
 
       [[eosio::action]]
@@ -34,7 +36,7 @@ class hello1 : public contract {
          //require_auth( _self );
          auto newBalance = eosio::token::get_balance("eosio.token"_n, _self, symbol("EOS",4).code());
          print(_self,"have ",newBalance);
-         eosio_assert( newBalance.amount > data.amount,"bad");
+         eosio_assert( newBalance.amount > data.amount,"bad day");
       }
 };
 
