@@ -28,13 +28,8 @@ class hello : public eosio::contract {
             N(eosio.token), N(transfer),
             std::make_tuple(_self, who, value, memo)
          ).send();
-<<<<<<< HEAD
          /*
          action(
-=======
-        /* 
-        action(
->>>>>>> 784560b2e738053a79027d7d4d02090b71706b5b
             permission_level{ _self, N(active) },
             _self, N(reality),
             std::make_tuple(balance)
