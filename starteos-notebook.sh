@@ -19,9 +19,11 @@ cleos create account eosio eosio.token EOS4txmdWWQKEr7YP3tBeDjLt5UZ5UDbJzpmBLX5a
 cleos create account eosio alice EOS4txmdWWQKEr7YP3tBeDjLt5UZ5UDbJzpmBLX5aHkRm8TjeeY9V
 cleos create account eosio bob EOS4txmdWWQKEr7YP3tBeDjLt5UZ5UDbJzpmBLX5aHkRm8TjeeY9V
 cleos create account eosio eosbetcasino EOS4txmdWWQKEr7YP3tBeDjLt5UZ5UDbJzpmBLX5aHkRm8TjeeY9V
+cleos create account eosio fakeos EOS4txmdWWQKEr7YP3tBeDjLt5UZ5UDbJzpmBLX5aHkRm8TjeeY9V
 cleos set account permission alice active --add-code
 cleos set account permission bob active --add-code
 cleos set account permission eosbetcasino active --add-code
+cleos set account permission fakeos active --add-code
 cleos set contract eosio.token ./study1/eosio.token --abi eosio.token.abi -p eosio.token@active
 
 
@@ -34,6 +36,12 @@ cleos set contract eosbetcasino ./study1/EOSBetDice
 cleos push action eosbetcasino initcontract '["EOS4txmdWWQKEr7YP3tBeDjLt5UZ5UDbJzpmBLX5aHkRm8TjeeY9V"]' -p eosbetcasino@active
 cleos transfer alice eosbetcasino "1 EOS" "96"
 cleos get table eosbetcasino eosbetcasino activebets
+
 cleos push action eosbetcasino resolvebet '["11032539410485486696","SIG_K1_K1FWRDNsuHW54XfQ5vtbyFT4F55FSVdXEjRAYPJqGzKrxWMMWqyvNMjL4o3yHXebFMMzj34nNNPEQ1Ety7rmk2bfVBRjpW"]' -p alice@active
-cleos get
+cleos get currency balance eosio.token alice 
+
+cleos set contract fakeos ./study1/eosio.token --abi eosio.token.abi -p fakeos@active
+cleos push action fakeos create '[ "fakeos", "1000000000.0000 EOS"]' -p fakeos@active
+cleos push action fakeos issue '[ "alice", "10000.0000 EOS", "memo" ]' -p fakeos@active
+cleos push action fakeos transfer '["alice","eosbetcasino","1.0000 EOS","96"]' -p alice@active
 
