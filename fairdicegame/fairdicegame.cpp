@@ -48,12 +48,15 @@ void fairdicegame::transfer(const account_name& from,
                             const account_name& to,
                             const asset& quantity,
                             const string& memo) {
+    print("SS1 ");
     if (from == _self || to != _self) {
         return;
     }
     if ("Transfer bonus" == memo) {
         return;
     }
+    
+    print("SS2 ");
 
     uint8_t roll_under;
     checksum256 seed_hash;
@@ -63,10 +66,11 @@ void fairdicegame::transfer(const account_name& from,
     signature sig;
 
     parse_memo(memo, &roll_under, &seed_hash, &user_seed_hash, &expiration, &referrer, &sig);
-
+    
+    print("SS3 ");
     //check quantity
     assert_quantity(quantity);
-
+    print("SS4 ");
     //check roll_under
     assert_roll_under(roll_under, quantity);
 
@@ -79,7 +83,7 @@ void fairdicegame::transfer(const account_name& from,
     //check signature
     assert_signature(roll_under, seed_hash, expiration, referrer, sig);
     
-    print("SS1");
+
 
     const st_bet _bet{.id = next_id(),
                       .player = from,
@@ -91,7 +95,6 @@ void fairdicegame::transfer(const account_name& from,
                       .created_at = now()};
     save(_bet);
     lock(quantity);
-    print("SS2");
     action(permission_level{_self, N(active)},
            _self,
            N(receipt),
