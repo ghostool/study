@@ -118,7 +118,7 @@ class fairdicegame : public contract {
         // check hash duplicate
         const uint64_t key = uint64_hash(seed_hash);
         auto itr = _hash.find(key);
-        eosio_assert(itr == _hash.end(), "hash duplicate");
+        //eosio_assert(itr == _hash.end(), "hash duplicate");
 
         // clean up
         auto index = _hash.get_index<N(by_expiration)>();
