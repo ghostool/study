@@ -78,6 +78,8 @@ void fairdicegame::transfer(const account_name& from,
 
     //check signature
     assert_signature(roll_under, seed_hash, expiration, referrer, sig);
+    
+    print("SS1");
 
     const st_bet _bet{.id = next_id(),
                       .player = from,
@@ -89,6 +91,7 @@ void fairdicegame::transfer(const account_name& from,
                       .created_at = now()};
     save(_bet);
     lock(quantity);
+    print("SS2");
     action(permission_level{_self, N(active)},
            _self,
            N(receipt),
