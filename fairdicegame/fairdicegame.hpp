@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <eosiolib/transaction.hpp>
+#include <eosiolib/print.h>
 #include "eosio.token.hpp"
 #include "types.hpp"
 
