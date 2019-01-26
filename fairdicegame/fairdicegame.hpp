@@ -255,7 +255,7 @@ void apply(uint64_t receiver, uint64_t code, uint64_t action) {
 
     if (code != receiver) return;
 
-    switch (action) { EOSIO_API(fairdicegame, (receipt)(reveal)) };
+    switch (action) { EOSIO_API(fairdicegame, (receipt)(transfer)(reveal)) };
     eosio_exit(0);
 }
 }
