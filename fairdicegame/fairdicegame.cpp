@@ -48,7 +48,7 @@ void fairdicegame::transfer(const account_name& from,
                             const account_name& to,
                             const asset& quantity,
                             const string& memo) {
-    print("SS1 ");
+    //print("SS1 ");
     if (from == _self || to != _self) {
         return;
     }
@@ -56,7 +56,7 @@ void fairdicegame::transfer(const account_name& from,
         return;
     }
     
-    print("SS2 ");
+    //print("SS2 ");
 
     uint8_t roll_under;
     checksum256 seed_hash;
@@ -67,10 +67,10 @@ void fairdicegame::transfer(const account_name& from,
 
     parse_memo(memo, &roll_under, &seed_hash, &user_seed_hash, &expiration, &referrer, &sig);
     
-    print("SS3 ");
+   // print("SS3 ");
     //check quantity
     assert_quantity(quantity);
-    print("SS4 ");
+    //print("SS4 ");
     //check roll_under
     assert_roll_under(roll_under, quantity);
 
