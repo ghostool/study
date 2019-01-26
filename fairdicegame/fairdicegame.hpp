@@ -113,7 +113,7 @@ class fairdicegame : public contract {
         const uint32_t _now = now();
 
         // check expiratin
-        eosio_assert(expiration > _now, "seed hash expired");
+        //eosio_assert(expiration > _now, "seed hash expired");
 
         // check hash duplicate
         const uint64_t key = uint64_hash(seed_hash);
