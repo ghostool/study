@@ -207,7 +207,7 @@ class EOSBetDice : public eosio::contract {
 			});
 		}
 
-		void transfer（ account_name from, account_name to, asset quantity, std::string  memo) {
+		void transfer( account_name from, account_name to, asset quantity, std::string  memo) {
 
 			auto transfer_data = unpack_action_data<st_transfer>();
 
