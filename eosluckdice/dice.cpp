@@ -15,9 +15,10 @@
 #include <eosiolib/asset.hpp>
 #include <eosiolib/action.hpp>
 #include <boost/algorithm/string.hpp>
-#include <eosio.token.hpp>
+//#include <eosio.token.hpp>
 #include "config.hpp"
-#include "eosiolib/currency.hpp"
+#include "currency.hpp"
+#include "eosio.token.hpp"
 
 #define GLOBAL_ID_BET 101
 #define GLOBAL_ID_HISTORY_INDEX 104
