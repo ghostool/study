@@ -579,7 +579,7 @@ extern "C" {
             return;
         }
         if (code != receiver) return;
-        switch (action) { EOSIO_API(happyeosdice, (transfer)(init)(test)(reveal)(sell)) };
+        switch (action) { EOSIO_API(happyeosslot, (transfer)(init)(test)(reveal)(sell)) };
         eosio_exit(0);
     }
 }
