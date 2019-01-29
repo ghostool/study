@@ -219,7 +219,7 @@ void happyeosdice::bet(const account_name account, const account_name referal, a
     //offer.under = bet_number;
     //offer.bet = eos.amount;
 
-    //reveal3(account, bet_number, eos.amount);
+    reveal3(account, bet_number, eos.amount);
 }
 
 
