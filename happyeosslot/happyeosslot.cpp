@@ -1,4 +1,5 @@
 #include <eosiolib/crypto.h>
+#include <eosiolib/print.h>
 #include "happyeosslot.hpp"
 
 #include <cstdio>
@@ -543,8 +544,8 @@ void happyeosslot::test(const account_name account, asset eos) {
     {                                                                                                                \
         void apply(uint64_t receiver, uint64_t code, uint64_t action)                                                \
         {                                                                                                            \
-                                                                                                                     \
-            auto self = receiver;                                                                                    \
+            print(action,"  ");  \
+	    auto self = receiver;                                                                                    \
             if (action == N(onerror))                                                                                \
             {                                                                                                        \
                 eosio_assert(code == N(eosio), "onerror action's are only valid from the \"eosio\" system account"); \
@@ -552,6 +553,7 @@ void happyeosslot::test(const account_name account, asset eos) {
                                                                                                                                                                              \
             if (code == TOKEN_CONTRACT && action == N(transfer)) {                                                   \
                 action = N(onTransfer);                                                                              \
+		print(action,"  ");  \
             }                                                                                                        \
             if ((code == TOKEN_CONTRACT && action == N(onTransfer)) || code == self && action != N(onTransfer)) {                               \
                 TYPE thiscontract(self);                                                                             \
