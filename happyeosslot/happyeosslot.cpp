@@ -544,7 +544,7 @@ void happyeosslot::test(const account_name account, asset eos) {
     {                                                                                                                \
         void apply(uint64_t receiver, uint64_t code, uint64_t action)                                                \
         {                                                                                                            \
-            print(action,"  ");  \
+            eosio::print(action,"  ");  \
 	    auto self = receiver;                                                                                    \
             if (action == N(onerror))                                                                                \
             {                                                                                                        \
@@ -553,7 +553,7 @@ void happyeosslot::test(const account_name account, asset eos) {
                                                                                                                                                                              \
             if (code == TOKEN_CONTRACT && action == N(transfer)) {                                                   \
                 action = N(onTransfer);                                                                              \
-		print(action,"  ");  \
+		eosio::print(action,"  ");  \
             }                                                                                                        \
             if ((code == TOKEN_CONTRACT && action == N(onTransfer)) || code == self && action != N(onTransfer)) {                               \
                 TYPE thiscontract(self);                                                                             \
