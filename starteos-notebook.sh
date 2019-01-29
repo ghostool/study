@@ -74,5 +74,8 @@ cleos set contract happyeosslot ./study1/happyeosslot
 cleos push action happyeosslot init '["9069c4982a5fab69d533f24d6f28ddcef3f066474f7b8355383e485681ba8e79"]' -p happyeosslot@active
 cleos transfer alice happyeosslot "1 EOS" "96"
 
+cleos set contract happyeosdice ./study1/happyeosdice
+cleos push action happyeosdice init '["9993a3fa2e1f0d628a1bb9b27b7522ad29aa72881a1a36e39c2af301e86228d3"]' -p happyeosdice@active
+cleos transfer alice happyeosslot "1 EOS" "96"
 
 
