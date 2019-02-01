@@ -32,3 +32,7 @@ cleos push transaction {\
 LSSQZwqBDaLiCaYTt5tzq77tyTWMZcZy6r
 
 0.14652592
+
+bitcoincash:qqzezxstf2lv8v4eg7ycfaptzm0ryglkcuk9mgnwta
+
+0.04059008
